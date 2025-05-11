@@ -1,0 +1,48 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0b0c2a;
+  color: #fff;
+}
+#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.content {
+  z-index: 2;
+  position: relative;
+  text-align: center;
+  padding: 60px 20px;
+  max-width: 800px;
+  margin: auto;
+}
+h1 {
+  font-size: 3em;
+  color: #ffddf0;
+  text-shadow: 0 0 20px #ff66cc;
+}
+.sub {
+  font-size: 1.2em;
+  margin-top: -10px;
+  color: #ffcce6;
+}
+.slideshow {
+  margin: 40px 0;
+}
+.slideshow img {
+  width: 250px;
+  height: 300px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255, 204, 229, 0.6);
+  transition: opacity 1s;
+  object-fit: cover;
+}
+.message {
+  font-size: 1.3em;
+  line-height: 1.6em;
+  color: #ffe6f2;
+}
