@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Happy Mother's Day Mumma 🌙</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body, html {
       margin: 0;
@@ -100,7 +99,7 @@
   </audio>
 
   <script>
-    // Music on click
+    // Music on image click
     const music = document.getElementById("bg-music");
     const slideshow = document.getElementById("slideshow");
 
@@ -110,7 +109,7 @@
       }
     });
 
-    // Slideshow logic
+    // Slideshow image rotation
     const slides = document.querySelectorAll(".slide");
     let current = 0;
 
@@ -120,7 +119,7 @@
       slides[current].classList.add("active");
     }, 4000);
 
-    // Starry background
+    // Star background
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
     let w = canvas.width = window.innerWidth;
@@ -148,12 +147,12 @@
       ctx.globalAlpha = 1;
     }
 
-    function animate() {
+    function animateStars() {
       drawStars();
-      requestAnimationFrame(animate);
+      requestAnimationFrame(animateStars);
     }
 
-    animate();
+    animateStars();
 
     window.addEventListener("resize", () => {
       w = canvas.width = window.innerWidth;
