@@ -92,6 +92,60 @@
       }
     });
   </script>
+  <script>
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  const numStars = 100;
+  const stars = [];
+
+  for (let i = 0; i < numStars; i++) {
+    stars.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      radius: Math.random() * 1.5 + 0.5,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: (Math.random() - 0.5) * 0.5
+    });
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'white';
+    stars.forEach(star => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  function updateStars() {
+    stars.forEach(star => {
+      star.x += star.dx;
+      star.y += star.dy;
+
+      if (star.x < 0 || star.x > w) star.dx *= -1;
+      if (star.y < 0 || star.y > h) star.dy *= -1;
+    });
+  }
+
+  function animate() {
+    drawStars();
+    updateStars();
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  window.addEventListener('resize', () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+</script>
+
 </body>
 </html>
 
