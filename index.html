@@ -32,6 +32,7 @@
       height: 100%;
       text-align: center;
       padding: 20px;
+      z-index: 1; /* Keep content above canvas */
     }
 
     .slideshow {
@@ -45,13 +46,37 @@
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       display: none;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow img:first-child {
+      display: block;
     }
 
     .message {
       font-size: 1.2rem;
       margin-top: 20px;
       line-height: 1.6;
+      font-style: italic;
     }
+
+    /* Animation for slideshow */
+    @keyframes slideAnimation {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .slideshow img.active {
+      animation: slideAnimation 8s infinite;
+    }
+
   </style>
 </head>
 <body>
@@ -71,7 +96,7 @@
       In the cozy quiet of the night,<br>
       Your love glows like stars so bright.<br><br>
       With every hug and every prayer,<br>
-      Mumma, you show me how much you care. 🌌
+      Mumma, you show me how much you care. 🌌<br>
       LOVE YOU 
     </p>
   </div>
@@ -91,61 +116,60 @@
         music.play();
       }
     });
+
+    // Starry background effect
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+
+    const numStars = 100;
+    const stars = [];
+
+    for (let i = 0; i < numStars; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        radius: Math.random() * 1.5 + 0.5,
+        dx: (Math.random() - 0.5) * 0.2,  // slower speed for smoother stars
+        dy: (Math.random() - 0.5) * 0.2   // slower speed for smoother stars
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = 'white';
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    function updateStars() {
+      stars.forEach(star => {
+        star.x += star.dx;
+        star.y += star.dy;
+
+        if (star.x < 0 || star.x > w) star.dx *= -1;
+        if (star.y < 0 || star.y > h) star.dy *= -1;
+      });
+    }
+
+    function animate() {
+      drawStars();
+      updateStars();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    });
   </script>
-  <script>
-  const canvas = document.getElementById('stars');
-  const ctx = canvas.getContext('2d');
-
-  let w = canvas.width = window.innerWidth;
-  let h = canvas.height = window.innerHeight;
-
-  const numStars = 100;
-  const stars = [];
-
-  for (let i = 0; i < numStars; i++) {
-    stars.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      radius: Math.random() * 1.5 + 0.5,
-      dx: (Math.random() - 0.5) * 0.5,
-      dy: (Math.random() - 0.5) * 0.5
-    });
-  }
-
-  function drawStars() {
-    ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = 'white';
-    stars.forEach(star => {
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fill();
-    });
-  }
-
-  function updateStars() {
-    stars.forEach(star => {
-      star.x += star.dx;
-      star.y += star.dy;
-
-      if (star.x < 0 || star.x > w) star.dx *= -1;
-      if (star.y < 0 || star.y > h) star.dy *= -1;
-    });
-  }
-
-  function animate() {
-    drawStars();
-    updateStars();
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-
-  window.addEventListener('resize', () => {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  });
-</script>
 
 </body>
 </html>
-
